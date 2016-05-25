@@ -1,9 +1,8 @@
 class Photo < ActiveRecord::Base
   belongs_to :owner, class_name: 'Member'
 
-  has_and_belongs_to_many :plantings
-  has_and_belongs_to_many :harvests
-  has_and_belongs_to_many :gardens
+  has_many :photo_taggings
+
   before_destroy do |photo|
     photo.plantings.clear
     photo.harvests.clear
