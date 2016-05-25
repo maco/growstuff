@@ -1,4 +1,5 @@
 class ScientificNamesController < ApplicationController
+  include SimpleCreate
   before_filter :authenticate_member!, except: [:index, :show]
   load_and_authorize_resource
 
@@ -46,16 +47,9 @@ class ScientificNamesController < ApplicationController
   def create
     params[:scientific_name][:creator_id] = current_member.id
     @scientific_name = ScientificName.new(scientific_name_params)
-
-    respond_to do |format|
-      if @scientific_name.save
-        format.html { redirect_to @scientific_name.crop, notice: 'Scientific name was successfully created.' }
-        format.json { render json: @scientific_name, status: :created, location: @scientific_name }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @scientific_name.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect = @scientific_name.crop
+    success_message = 'Scientific name was successfully created.'
+    render_create(@scientific_name, success_message, redirect)
   end
 
   # PUT /scientific_names/1

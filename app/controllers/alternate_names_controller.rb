@@ -1,4 +1,5 @@
 class AlternateNamesController < ApplicationController
+  include SimpleCreate
   before_filter :authenticate_member!, except: [:index, :show]
   load_and_authorize_resource
 
@@ -46,16 +47,9 @@ class AlternateNamesController < ApplicationController
   def create
     params[:alternate_name][:creator_id] = current_member.id
     @alternate_name = AlternateName.new(alternate_name_params)
-
-    respond_to do |format|
-      if @alternate_name.save
-        format.html { redirect_to @alternate_name.crop, notice: 'Alternate name was successfully created.' }
-        format.json { render json: @alternate_name, status: :created, location: @alternate_name }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @alternate_name.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect = @alternate_name.crop
+    success_message = 'Alternate name was successfully created.'
+    render_create(@alternate_name, success_message, redirect)
   end
 
   # PUT /alternate_names/1

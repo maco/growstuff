@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  include SimpleCreate
   before_filter :authenticate_member!, except: [:index, :show]
   load_and_authorize_resource
 
@@ -54,16 +55,9 @@ class CommentsController < ApplicationController
   def create
     params[:comment][:author_id] = current_member.id
     @comment = Comment.new(comment_params)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment.post, notice: "Comment was successfully created." }
-        format.json { render json: @comment, status: :created, location: @comment }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
+    success_message = "Comment was successfully created."
+    redirect = @comment.post
+    render_create(@comment, success_message, redirect)
   end
 
   # PUT /comments/1
