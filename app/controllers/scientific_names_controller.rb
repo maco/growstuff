@@ -47,9 +47,7 @@ class ScientificNamesController < ApplicationController
   def create
     params[:scientific_name][:creator_id] = current_member.id
     @scientific_name = ScientificName.new(scientific_name_params)
-    redirect = @scientific_name.crop
-    success_message = 'Scientific name was successfully created.'
-    render_create(@scientific_name, success_message, redirect)
+    render_create(@scientific_name, 'Scientific name', @scientific_name.crop)
   end
 
   # PUT /scientific_names/1

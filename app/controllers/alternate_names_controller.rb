@@ -47,9 +47,7 @@ class AlternateNamesController < ApplicationController
   def create
     params[:alternate_name][:creator_id] = current_member.id
     @alternate_name = AlternateName.new(alternate_name_params)
-    redirect = @alternate_name.crop
-    success_message = 'Alternate name was successfully created.'
-    render_create(@alternate_name, success_message, redirect)
+    render_create(@alternate_name, 'Alternate name', @alternate_name.crop)
   end
 
   # PUT /alternate_names/1

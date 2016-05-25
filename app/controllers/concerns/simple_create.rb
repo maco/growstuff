@@ -1,10 +1,10 @@
 module SimpleCreate
   extend ActiveSupport::Concern
 
-  def render_create(me, success_message, redirect)
+  def render_create(me, pretty_name, redirect)
     respond_to do |format|
       if me.save
-        format.html { redirect_to redirect, notice: success_message }
+        format.html { redirect_to redirect, notice: "#{pretty_name} was successfully created." }
         format.json { render json: me, status: :created, location: me }
       else
         format.html { render action: "new" }

@@ -55,9 +55,7 @@ class CommentsController < ApplicationController
   def create
     params[:comment][:author_id] = current_member.id
     @comment = Comment.new(comment_params)
-    success_message = "Comment was successfully created."
-    redirect = @comment.post
-    render_create(@comment, success_message, redirect)
+    render_create(@comment, 'Comment', @comment.post)
   end
 
   # PUT /comments/1
