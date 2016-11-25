@@ -23,7 +23,7 @@ class Planting < ActiveRecord::Base
 
   validates :crop, approved: true
 
-  validates :crop, presence: {message: "must be present and exist in our database"}
+  validates :crop, presence: { message: "must be present and exist in our database" }
 
   validates :quantity,
     numericality: {
@@ -96,7 +96,7 @@ class Planting < ActiveRecord::Base
     if differences.compact.empty?
       nil
     else
-      differences.compact.sum/differences.compact.size
+      differences.compact.sum / differences.compact.size
     end
   end
 
@@ -111,7 +111,7 @@ class Planting < ActiveRecord::Base
 
     return 0 if current_date < planted_at
     return 100 if days > days_before_maturity
-    percent = (days/days_before_maturity*100).to_i
+    percent = (days / days_before_maturity * 100).to_i
 
     if percent >= 100
       percent = 100
@@ -123,7 +123,7 @@ class Planting < ActiveRecord::Base
   # return a list of interesting plantings, for the homepage etc.
   # we can't do this via a scope (as far as we know) so sadly we have to
   # do it this way.
-  def Planting.interesting(howmany=12, require_photo=true)
+  def Planting.interesting(howmany = 12, require_photo = true)
     interesting_plantings = []
     seen_owners = Hash.new(false) # keep track of which owners we've seen already
 
