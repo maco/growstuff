@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Garden do
-
   let(:owner) { FactoryGirl.create(:member) }
   let(:garden) { FactoryGirl.create(:garden, owner: owner) }
 
@@ -52,7 +51,6 @@ describe Garden do
   end
 
   context "featured plantings" do
-
     let(:tomato) { FactoryGirl.create(:tomato) }
     let(:maize) { FactoryGirl.create(:maize) }
     let(:chard) { FactoryGirl.create(:chard) }
@@ -65,7 +63,6 @@ describe Garden do
       @p2 = FactoryGirl.create(:planting, crop: maize, garden: garden)
 
       garden.featured_plantings.should eq [@p2, @p1]
-
     end
 
     it "should fetch most recent 4 featured plantings" do
@@ -168,7 +165,6 @@ describe Garden do
   end
 
   context 'active scopes' do
-
     let(:active) { FactoryGirl.create(:garden) }
     let(:inactive) { FactoryGirl.create(:inactive_garden) }
 
@@ -219,7 +215,6 @@ describe Garden do
   end
 
   context 'photos' do
-
     let(:garden) { FactoryGirl.create(:garden) }
     let(:photo) { FactoryGirl.create(:photo) }
 
@@ -247,5 +242,4 @@ describe Garden do
       garden.default_photo.should eq @photo2
     end
   end
-
 end

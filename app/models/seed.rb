@@ -93,7 +93,6 @@ class Seed < ActiveRecord::Base
     end
 
     return interesting_seeds
-
   end
 
   def seed_slug
