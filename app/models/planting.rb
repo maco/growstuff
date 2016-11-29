@@ -23,7 +23,7 @@ class Planting < ActiveRecord::Base
 
   validates :crop, approved: true
 
-  validates :crop, presence: {message: "must be present and exist in our database"}
+  validates :crop, presence: { message: "must be present and exist in our database" }
 
   validates :quantity,
     numericality: {
@@ -33,9 +33,9 @@ class Planting < ActiveRecord::Base
 
   SUNNINESS_VALUES = %w(sun semi-shade shade)
   validates :sunniness, inclusion: { in: SUNNINESS_VALUES,
-        message: "%{value} is not a valid sunniness value" },
-        allow_nil: true,
-        allow_blank: true
+                                     message: "%{value} is not a valid sunniness value" },
+                        allow_nil: true,
+                        allow_blank: true
 
   PLANTED_FROM_VALUES = [
     'seed',
@@ -51,15 +51,15 @@ class Planting < ActiveRecord::Base
     'layering'
   ]
   validates :planted_from, inclusion: { in: PLANTED_FROM_VALUES,
-        message: "%{value} is not a valid planting method" },
-        allow_nil: true,
-        allow_blank: true
+                                        message: "%{value} is not a valid planting method" },
+                           allow_nil: true,
+                           allow_blank: true
 
   validate :finished_must_be_after_planted
 
   # check that any finished_at date occurs after planted_at
   def finished_must_be_after_planted
-    return unless planted_at and finished_at # only check if we have both
+    return unless planted_at && finished_at # only check if we have both
     errors.add(:finished_at, "must be after the planting date") unless planted_at < finished_at
   end
 
@@ -88,15 +88,15 @@ class Planting < ActiveRecord::Base
   def calculate_days_before_maturity(planting, crop)
     p_crop = Planting.where(crop_id: crop).where.not(id: planting)
     differences = p_crop.collect do |p|
-      if p.finished and !p.finished_at.nil?
+      if p.finished && !p.finished_at.nil?
         (p.finished_at - p.planted_at).to_i
       end
     end
 
     if differences.compact.empty?
       nil
-    else  
-      differences.compact.sum/differences.compact.size
+    else
+      differences.compact.sum / differences.compact.size
     end
   end
 
@@ -111,7 +111,7 @@ class Planting < ActiveRecord::Base
 
     return 0 if current_date < planted_at
     return 100 if days > days_before_maturity
-    percent = (days/days_before_maturity*100).to_i
+    percent = (days / days_before_maturity * 100).to_i
 
     if percent >= 100
       percent = 100
@@ -123,8 +123,8 @@ class Planting < ActiveRecord::Base
   # return a list of interesting plantings, for the homepage etc.
   # we can't do this via a scope (as far as we know) so sadly we have to
   # do it this way.
-  def Planting.interesting(howmany=12, require_photo=true)
-    interesting_plantings = Array.new
+  def Planting.interesting(howmany = 12, require_photo = true)
+    interesting_plantings = []
     seen_owners = Hash.new(false) # keep track of which owners we've seen already
 
     Planting.includes(:photos).each do |p|

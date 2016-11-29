@@ -23,7 +23,7 @@ class Garden < ActiveRecord::Base
 
   validates :name,
     format: {
-      with: /\S/
+      with: /\A\w+[\w ]+\z/
     },
     length: { maximum: 255 }
 
@@ -40,9 +40,9 @@ class Garden < ActiveRecord::Base
     "acres" => "acre"
   }
   validates :area_unit, inclusion: { in: AREA_UNITS_VALUES.values,
-        message: "%{value} is not a valid area unit" },
-        allow_nil: true,
-        allow_blank: true
+                                     message: "%{value} is not a valid area unit" },
+                        allow_nil: true,
+                        allow_blank: true
 
   after_validation :cleanup_area
 
@@ -66,7 +66,7 @@ class Garden < ActiveRecord::Base
     seen_crops = []
 
     plantings.each do |p|
-      if (! seen_crops.include?(p.crop))
+      if (!seen_crops.include?(p.crop))
         unique_plantings.push(p)
         seen_crops.push(p.crop)
       end
@@ -93,5 +93,4 @@ class Garden < ActiveRecord::Base
   def default_photo
     return photos.first
   end
-
 end

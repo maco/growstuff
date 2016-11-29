@@ -10,10 +10,6 @@
 ## If you submit a pull request containing new view or controller tests, it will not be
 ## merged.
 
-
-
-
-
 require 'rails_helper'
 
 describe 'layouts/_header.html.haml', type: "view" do
@@ -24,7 +20,7 @@ describe 'layouts/_header.html.haml', type: "view" do
     end
 
     it 'shows the brand logo in the navbar' do
-      assert_select("img[src='/assets/growstuff-brand.png']", href: root_path)
+      assert_select("a.navbar-brand img[src]", href: root_path)
     end
 
     it 'should have signup/signin links' do
@@ -49,26 +45,24 @@ describe 'layouts/_header.html.haml', type: "view" do
     end
 
     it 'links to members' do
-      assert_select("a[href=#{members_path}]", 'Browse Members')
+      assert_select("a[href='#{members_path}']", 'Browse Members')
     end
 
     it 'links to posts' do
-      assert_select("a[href=#{posts_path}]", 'Posts')
+      assert_select("a[href='#{posts_path}']", 'Posts')
     end
 
     it 'links to forums' do
-      assert_select("a[href=#{forums_path}]", 'Forums')
+      assert_select("a[href='#{forums_path}']", 'Forums')
     end
 
     it 'has a crop search' do
-      assert_select("form[action=#{crops_search_path}]")
+      assert_select("form[action='#{crops_search_path}']")
       assert_select("input#term")
     end
-
   end
 
   context "logged in" do
-
     before(:each) do
       @member = FactoryGirl.create(:member)
       sign_in @member
@@ -81,16 +75,16 @@ describe 'layouts/_header.html.haml', type: "view" do
         rendered.should have_content "#{@member.login_name}"
       end
       it "should show link to member's gardens" do
-        assert_select("a[href=#{gardens_by_owner_path(owner: @member.slug)}]", "Gardens")
+        assert_select("a[href='#{gardens_by_owner_path(owner: @member.slug)}']", "Gardens")
       end
       it "should show link to member's plantings" do
-        assert_select("a[href=#{plantings_by_owner_path(owner: @member.slug)}]", "Plantings")
+        assert_select("a[href='#{plantings_by_owner_path(owner: @member.slug)}']", "Plantings")
       end
       it "should show link to member's seeds" do
-        assert_select("a[href=#{seeds_by_owner_path(owner: @member.slug)}]", "Seeds")
+        assert_select("a[href='#{seeds_by_owner_path(owner: @member.slug)}']", "Seeds")
       end
       it "should show link to member's posts" do
-        assert_select("a[href=#{posts_by_author_path(author: @member.slug)}]", "Posts")
+        assert_select("a[href='#{posts_by_author_path(author: @member.slug)}']", "Posts")
       end
     end
 
@@ -110,6 +104,5 @@ describe 'layouts/_header.html.haml', type: "view" do
         rendered.should have_content 'Inbox (1)'
       end
     end
-
   end
 end

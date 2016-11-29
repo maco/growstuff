@@ -14,17 +14,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1
-  # GET /comments/1.json
-  def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @comment }
-    end
-  end
-
   # GET /comments/new
   # GET /comments/new.json
   def new
@@ -100,7 +89,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def comment_params
     params.require(:comment).permit(:author_id, :body, :post_id)

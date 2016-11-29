@@ -47,7 +47,7 @@ describe Order do
     @order_item1 = FactoryGirl.create(:order_item,
       order_id: @order.id, product_id: @product.id, price: 1111, quantity: 1)
 
-    @order.total.should eq 1111 
+    @order.total.should eq 1111
   end
 
   it "gives the correct total for quantities more than 1" do
@@ -61,7 +61,7 @@ describe Order do
     @order_item1 = FactoryGirl.create(:order_item,
       order_id: @order.id, product_id: @product.id, price: 1111, quantity: 2)
 
-    @order.total.should eq 2222 
+    @order.total.should eq 2222
   end
 
   it "formats order items for activemerchant" do
@@ -81,7 +81,6 @@ describe Order do
       quantity: 1,
       amount: 1111
     }]
-
   end
 
   context "referral codes" do
@@ -126,7 +125,5 @@ describe Order do
       order = FactoryGirl.create(:order, referral_code: 'baz')
       Order.search(by: 'referral_code', for: 'baz').should eq [order]
     end
-
   end
-
 end

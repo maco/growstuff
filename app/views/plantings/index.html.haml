@@ -1,4 +1,4 @@
-- content_for :title, @owner ? t('.title.owner_plantings', owner: @owner) : @crop ? t('.title.crop_plantings', crop: @crop.name) : t('.title.default') 
+- content_for :title, @owner ? t('.title.owner_plantings', owner: @owner) : @crop ? t('.title.crop_plantings', crop: @crop.name) : t('.title.default')
 - if @owner
   = link_to "View #{@owner}'s profile >>", member_path(@owner)
 
@@ -17,7 +17,7 @@
     = render :partial => 'shared/signin_signup', :locals => { :to => "track what you've planted" }
 
 %div.pagination
-  = page_entries_info @plantings, :model => "plantings"
+  = page_entries_info @plantings
   = will_paginate @plantings
 
 .row
@@ -27,7 +27,7 @@
         = render partial: "plantings/thumbnail", locals: {:planting => planting}
 
 %div.pagination
-  = page_entries_info @plantings, :model => "plantings"
+  = page_entries_info @plantings
   = will_paginate @plantings
 
   %ul.list-inline

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
         request.path != "/members/confirmation" &&
         request.path != "/members/sign_out" &&
         !request.xhr?)
-        store_location_for(:member, request.fullpath)
+      store_location_for(:member, request.fullpath)
     end
   end
 
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |member|
+    devise_parameter_sanitizer.permit(:sign_up) do |member|
       member.permit(:login_name, :email, :password, :password_confirmation,
         :remember_me, :login,
         # terms of service
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
       )
     end
 
-    devise_parameter_sanitizer.for(:account_update) do |member|
+    devise_parameter_sanitizer.permit(:account_update) do |member|
       member.permit(:login_name, :email, :password, :password_confirmation,
         :remember_me, :login,
         # terms of service
@@ -73,10 +73,9 @@ class ApplicationController < ActionController::Base
         :bio, :location, :latitude, :longitude,
         # email settings
         :show_email, :newsletter, :send_notification_email, :send_planting_reminder,
-        #update password
+        # update password
         :current_password
       )
     end
   end
-
 end
