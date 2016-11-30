@@ -1,6 +1,6 @@
 class Seed < ActiveRecord::Base
   extend FriendlyId
-  include PhotoTaggable
+  include PhotoCapable
   friendly_id :seed_slug, use: [:slugged, :finders]
 
   belongs_to :crop

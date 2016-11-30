@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :owner, class_name: 'Member'
 
-  has_many :photo_taggings
+  has_many :photo_mappings
 
   before_destroy do |photo|
     photo.plantings.clear

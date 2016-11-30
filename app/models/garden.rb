@@ -1,6 +1,5 @@
 class Garden < ActiveRecord::Base
   include Geocodable
-  include PhotoTaggable
   extend FriendlyId
   friendly_id :garden_slug, use: [:slugged, :finders]
 

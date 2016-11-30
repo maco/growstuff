@@ -1,9 +1,9 @@
-module PhotoTaggable
+module PhotoCapable
   extend ActiveSupport::Concern
 
   included do
-    has_many :photo_taggings, as: :has_photo
-    has_many :photos, through: :photo_taggings
+    has_many :photo_mappings, as: :has_photo
+    has_many :photos, through: :photo_mappings
 
     before_destroy :remove_from_list
   end
