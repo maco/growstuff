@@ -1,6 +1,6 @@
 class Harvest < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
-  include PhotoTaggable
+  include PhotoCapable
   extend FriendlyId
   friendly_id :harvest_slug, use: [:slugged, :finders]
 

@@ -90,10 +90,11 @@ describe Photo do
 
         harvest.destroy
         garden.destroy # photo is now no longer used by anything
-
+        photo.reload
         expect(photo.plantings.size).to eq 0
         expect(photo.harvests.size).to eq 0
         expect(photo.gardens.size).to eq 0
+
         photo.destroy_if_unused
         expect(lambda { photo.reload }).to raise_error ActiveRecord::RecordNotFound
       end

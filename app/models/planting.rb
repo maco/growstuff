@@ -1,7 +1,6 @@
 class Planting < ActiveRecord::Base
   extend FriendlyId
-  include PhotoTaggable
-
+  include PhotoCapable
   friendly_id :planting_slug, use: [:slugged, :finders]
 
   belongs_to :garden
