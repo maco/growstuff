@@ -2,9 +2,7 @@ module PhotoCapable
   extend ActiveSupport::Concern
 
   included do
-    has_many :photo_mappings, as: :has_photo
-    has_many :photos, through: :photo_mappings
-
+    has_and_belongs_to_many :photos
     before_destroy :remove_from_list
   end
 

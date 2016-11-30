@@ -1,6 +1,7 @@
 class Garden < ActiveRecord::Base
   include Geocodable
   extend FriendlyId
+  include PhotoCapable
   friendly_id :garden_slug, use: [:slugged, :finders]
 
   belongs_to :owner, class_name: 'Member', foreign_key: 'owner_id'
